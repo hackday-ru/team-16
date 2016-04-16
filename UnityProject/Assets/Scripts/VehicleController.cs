@@ -11,21 +11,29 @@ public class VehicleController : NetworkBehaviour
         public WheelCollider left;
         public WheelCollider right;
         public bool applyTorque;
-        [Range(-1, 1)] public float steeringFactor;
+        [Range(-1, 1)]
+        public float steeringFactor;
     }
 
     public float maxTorque;
     public float maxSteering;
+    public float jumpForce;
+    public float distanceToGround;
     public Axle[] axles = {};
 
-	private float chekingHoldTime = 2f;
-	private Dictionary<KeyCode, float> checkingHoldButtons = new Dictionary<KeyCode, float>();
+    Rigidbody body;
 
-    public void Update ()
+    private float chekingHoldTime = 2f;
+    private Dictionary<KeyCode, float> checkingHoldButtons = new Dictionary<KeyCode, float>();
+
+    void Awake()
     {
-        if ( !isLocalPlayer ) {
-            return;
-        }
+        body = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        if (!isLocalPlayer) { return; }
 
         float torque = maxTorque * Input.GetAxis("Vertical");
         float steering = maxSteering * Input.GetAxis("Horizontal");
@@ -42,32 +50,45 @@ public class VehicleController : NetworkBehaviour
             }
         }
 
-		CheckHoldButton (KeyCode.A);
+        if (Input.GetAxis("Jump") > 0.5f)
+        {
+            bool isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround);
+
+            if (isGrounded)
+            {
+                body.AddForce(0.0f, jumpForce, 0.0f, ForceMode.Impulse);
+            }
+        }
     }
 
-	private void CheckHoldButton(KeyCode keyCode)
-	{
-		float curValue;
-		if (Input.GetKeyDown (keyCode) && !checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			Debug.LogWarning ("CheckHoldButton GetKeyDown");
-			checkingHoldButtons.Add (keyCode, 0f);
-		}
+    void Update()
+    {
+        CheckHoldButton(KeyCode.A);
+    }
 
-		if (Input.GetKeyUp (keyCode) && checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			Debug.LogWarning ("CheckHoldButton GetKeyUp");
-			checkingHoldButtons.Remove (keyCode);
-		}
+    private void CheckHoldButton(KeyCode keyCode)
+    {
+        float curValue;
+        if (Input.GetKeyDown(keyCode) && !checkingHoldButtons.TryGetValue(keyCode, out curValue))
+        {
+            Debug.LogWarning("CheckHoldButton GetKeyDown");
+            checkingHoldButtons.Add(keyCode, 0f);
+        }
 
-		if (checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons[keyCode] += Time.deltaTime;
-			if (checkingHoldButtons[keyCode] >= chekingHoldTime)
-			{
-				Debug.LogWarning ("CheckHoldButton Done");
-				checkingHoldButtons.Remove (keyCode);
-			}
-		}
-	}
+        if (Input.GetKeyUp(keyCode) && checkingHoldButtons.TryGetValue(keyCode, out curValue))
+        {
+            Debug.LogWarning("CheckHoldButton GetKeyUp");
+            checkingHoldButtons.Remove(keyCode);
+        }
+
+        if (checkingHoldButtons.TryGetValue(keyCode, out curValue))
+        {
+            checkingHoldButtons[keyCode] += Time.deltaTime;
+            if (checkingHoldButtons[keyCode] >= chekingHoldTime)
+            {
+                Debug.LogWarning("CheckHoldButton Done");
+                checkingHoldButtons.Remove(keyCode);
+            }
+        }
+    }
 }
