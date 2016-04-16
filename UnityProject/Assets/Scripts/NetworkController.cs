@@ -9,33 +9,63 @@ public class NetworkController : NetworkManager {
 
 	private NetworkBehaviour networkLogic;
 
-	private NetworkManager networkManager;
+	public NetworkDiscovery networkDiscovery;
+	bool lookForLANGames = false;
+	float waitTime;
 
 	// Use this for initialization
 	void Start ()
 	{
-		networkManager = GetComponent<NetworkManager> ();
+		networkDiscovery = GetComponentInParent<NetworkDiscovery> ();
+		networkDiscovery.Initialize ();
+	
+		#if UNITY_IPHONE
+		StopServer ();
+		StopHost ();
+
+		networkDiscovery.StartAsClient ();
+
+		lookForLANGames = true;
+		waitTime = 3;
+		#endif
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
+		#if !UNITY_IPHONE
 		if (!networkLogic) {
 			if (Input.GetButton ("Submit")) {
-				StartHost ();
+				StartHost();
+
+				networkDiscovery.StartAsServer ();
 
 				networkLogic = Instantiate (serverSidePrefab, Vector3.zero, Quaternion.identity) as NetworkBehaviour;
 				networkLogic.transform.SetParent (gameObject.transform);
 				(networkLogic as iNetBehaviour).Initialize ();
 			} else if (Input.GetButton ("Jump")) {
-				StopServer ();
-				OnStopHost ();
+				StopServer();
+				StopHost();
+
+				networkDiscovery.StartAsClient ();
 
 				networkLogic = Instantiate (clientSidePrefab, Vector3.zero, Quaternion.identity) as NetworkBehaviour;
 				networkLogic.transform.SetParent (gameObject.transform);
 				(networkLogic as iNetBehaviour).Initialize ();
 			}
 		}
+		#else
+		if (lookForLANGames) {
+			waitTime -= Time.deltaTime;
+			if (waitTime < 0) {
+				lookForLANGames = false;
+				networkDiscovery.StopBroadcast ();
+				networkDiscovery.StartAsServer ();
+
+				StartHost ();
+			}
+		}
+		#endif
 	}
 
 	public override void OnStartClient(NetworkClient client)
