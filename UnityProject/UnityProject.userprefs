@@ -1,34 +1,46 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ClientSide.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NetworkPlayer.cs">
     <Files>
-      <File FileName="Assets/Scripts/ClientSide.cs" Line="14" Column="3" />
-      <File FileName="Assets/Scripts/ServerSide.cs" Line="3" Column="1" />
+      <File FileName="Assets/Scripts/ClientSide.cs" Line="14" Column="12" />
+      <File FileName="Assets/Scripts/ServerSide.cs" Line="18" Column="5" />
       <File FileName="Assets/NetWork/Scripts/Player.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/NetworkPlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/NetworkPlayer.cs" Line="5" Column="46" />
       <File FileName="Assets/NetWork/NewBehaviourScript.cs" Line="1" Column="1" />
       <File FileName="Assets/NetWork/Scripts/SceneControl.cs" Line="1" Column="1" />
       <File FileName="Assets/NetWork/Scripts/CrateMove.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/NetworkController.cs" Line="27" Column="8" />
+      <File FileName="Assets/NetWork/Lobby/scripts/PlayerLobby.cs" Line="74" Column="12" />
+      <File FileName="Assets/Scripts/iNetBehaviour.cs" Line="6" Column="1" />
+      <File FileName="Assets/Scripts/LANDiscoverController.cs" Line="9" Column="21" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="UnityProject" expanded="True">
             <Node name="Assembly-CSharp" expanded="True">
-              <Node name="NetWork" expanded="True">
-                <Node name="Scripts" expanded="True" />
-              </Node>
               <Node name="Scripts" expanded="True">
-                <Node name="ClientSide.cs" selected="True" />
+                <Node name="NetworkPlayer.cs" selected="True" />
               </Node>
             </Node>
+            <Node name="Assembly-CSharp-Editor" expanded="True" />
           </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State name="__root__">
+          <Node name="UnityProject" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/Artem_Nurgaliev/9KPonyPower/UnityProject/Assets/Scripts/NetworkController.cs" line="25" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
