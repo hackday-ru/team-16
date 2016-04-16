@@ -3,3 +3,4 @@ UnityProject/.consulo/*
 *.csproj
 *.sln
 UnityProject/Temp/*
+UnityProject/build*
