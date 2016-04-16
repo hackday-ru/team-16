@@ -732,6 +732,8 @@ MonoBehaviour:
     right: {fileID: 14681184}
     applyTorque: 1
     steeringFactor: 0
+  truePosition: {x: 0, y: 0, z: 0}
+  trueRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &11433390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -746,12 +748,12 @@ MonoBehaviour:
   m_TransformSyncMode: 3
   m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
+  m_RotationSyncCompression: 2
+  m_SyncSpin: 1
   m_MovementTheshold: 0.001
   m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 2
+  m_InterpolateRotation: 0
+  m_InterpolateMovement: 0
 --- !u!114 &11436248
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.Networking;
 
-public class VehicleController : MonoBehaviour
+public class VehicleController : NetworkBehaviour
 {
     [Serializable]
     public class Axle
@@ -16,8 +17,12 @@ public class VehicleController : MonoBehaviour
     public float maxSteering;
     public Axle[] axles = {};
 
-    public void FixedUpdate()
+    public void Update ()
     {
+        if ( !isLocalPlayer ) {
+            return;
+        }
+
         float torque = maxTorque * Input.GetAxis("Vertical");
         float steering = maxSteering * Input.GetAxis("Horizontal");
 
@@ -33,6 +38,5 @@ public class VehicleController : MonoBehaviour
             }
         }
     }
-
 
 }
