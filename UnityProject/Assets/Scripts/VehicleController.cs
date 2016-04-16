@@ -2,6 +2,7 @@
 using System;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using System.Collections;
 
 public class VehicleController : NetworkBehaviour
 {
@@ -17,26 +18,34 @@ public class VehicleController : NetworkBehaviour
 
     public float maxTorque;
     public float maxSteering;
-    public float jumpForce;
     public float distanceToGround;
+    public float jumpForce;
     public Axle[] axles = {};
 
     Rigidbody body;
 
-    private float chekingHoldTime = 2f;
-    private Dictionary<KeyCode, float> checkingHoldButtons = new Dictionary<KeyCode, float>();
-
-    void Awake()
+    public void EnableVechicle()
     {
-        body = GetComponent<Rigidbody>();
+        gameObject.GetComponent<Rigidbody>().useGravity = true;
+        //StartEngine ();
     }
 
-    void FixedUpdate()
-    {
-        if (!isLocalPlayer) { return; }
+    public float respawnTime = 2f;
 
-        float torque = maxTorque * Input.GetAxis("Vertical");
-        float steering = maxSteering * Input.GetAxis("Horizontal");
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+
+    public void Start()
+    {
+        body = GetComponent<Rigidbody>();
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+    }
+
+    public void OrderVechicle(float vertical, float horizontal, float jump)
+    {
+        float torque = maxTorque * vertical;
+        float steering = maxSteering * horizontal;
 
         foreach (var axle in axles)
         {
@@ -50,7 +59,7 @@ public class VehicleController : NetworkBehaviour
             }
         }
 
-        if (Input.GetAxis("Jump") > 0.5f)
+        if (jump > 0.5f)
         {
             bool isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround);
 
@@ -61,34 +70,29 @@ public class VehicleController : NetworkBehaviour
         }
     }
 
-    void Update()
+    public void ReplaceCar()
     {
-        CheckHoldButton(KeyCode.A);
+        StartCoroutine(ReplacingCar());
     }
 
-    private void CheckHoldButton(KeyCode keyCode)
+    private IEnumerator ReplacingCar()
     {
-        float curValue;
-        if (Input.GetKeyDown(keyCode) && !checkingHoldButtons.TryGetValue(keyCode, out curValue))
-        {
-            Debug.LogWarning("CheckHoldButton GetKeyDown");
-            checkingHoldButtons.Add(keyCode, 0f);
-        }
+        Vector3 startReplacePosition = transform.position;
+        Quaternion startReplaceRotation = transform.rotation;
 
-        if (Input.GetKeyUp(keyCode) && checkingHoldButtons.TryGetValue(keyCode, out curValue))
-        {
-            Debug.LogWarning("CheckHoldButton GetKeyUp");
-            checkingHoldButtons.Remove(keyCode);
-        }
+        bool replacing = true;
+        float curT = 0f;
+        float curTime = 0f;
+        while (replacing) {
+            replacing = !(curT >= 1f);
 
-        if (checkingHoldButtons.TryGetValue(keyCode, out curValue))
-        {
-            checkingHoldButtons[keyCode] += Time.deltaTime;
-            if (checkingHoldButtons[keyCode] >= chekingHoldTime)
-            {
-                Debug.LogWarning("CheckHoldButton Done");
-                checkingHoldButtons.Remove(keyCode);
-            }
+            transform.position = Vector3.Lerp(startReplacePosition, startPosition, curT);
+            transform.rotation = Quaternion.Slerp(startReplaceRotation, startRotation, curT);
+
+            curTime += Time.deltaTime;
+            curT = curTime / respawnTime;
+
+            yield return new WaitForEndOfFrame();
         }
     }
 }

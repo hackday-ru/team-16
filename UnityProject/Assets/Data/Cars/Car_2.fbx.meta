@@ -6,10 +6,30 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Antene
+    100004: Car_2_body
+    100006: Car_2_bumper
+    100008: Car_2_spoiler
     400000: //RootNode
+    400002: Antene
+    400004: Car_2_body
+    400006: Car_2_bumper
+    400008: Car_2_spoiler
     2300000: //RootNode
+    2300002: Antene
+    2300004: Car_2_body
+    2300006: Car_2_bumper
+    2300008: Car_2_spoiler
     3300000: //RootNode
+    3300002: Antene
+    3300004: Car_2_body
+    3300006: Car_2_bumper
+    3300008: Car_2_spoiler
     4300000: Car_2
+    4300002: Antene
+    4300004: Car_2_body
+    4300006: Car_2_spoiler
+    4300008: Car_2_bumper
   materials:
     importMaterials: 1
     materialName: 0
