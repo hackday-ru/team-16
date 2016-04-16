@@ -19,20 +19,12 @@ public class VehicleController : NetworkBehaviour
     public float maxSteering;
     public Axle[] axles = {};
 
-	private bool powered = false;
-
 	public void EnableVechicle(){
 		gameObject.GetComponent<Rigidbody> ().useGravity = true;
 		//StartEngine ();
 	}
-
-	public void StartEngine(){
-		powered = true;
-	}
 		
 	public float respawnTime = 2f;
-	private float chekingHoldTime = 2f;
-	private Dictionary<KeyCode, float> checkingHoldButtons = new Dictionary<KeyCode, float>();
 
 	private Vector3 startPosition;
 	private Quaternion startRotation;
@@ -43,58 +35,22 @@ public class VehicleController : NetworkBehaviour
 		startRotation = transform.rotation;
 	}
 
-    public void Update ()
-    {
-        if ( !isLocalPlayer ) {
-            return;
-        }
+	public void OrderVechicle(float vertical,float horizontal){
+		float torque = maxTorque * vertical;
+		float steering = maxSteering * horizontal;
 
-        float torque = maxTorque * Input.GetAxis("Vertical");
-        float steering = maxSteering * Input.GetAxis("Horizontal");
+		foreach (var axle in axles) {
+			axle.left.steerAngle = steering * axle.steeringFactor;
+			axle.right.steerAngle = steering * axle.steeringFactor;
 
-        foreach (var axle in axles)
-        {
-            axle.left.steerAngle = steering * axle.steeringFactor;
-            axle.right.steerAngle = steering * axle.steeringFactor;
-
-            if (axle.applyTorque)
-            {
-                axle.left.motorTorque = torque;
-                axle.right.motorTorque = torque;
-            }
-        }
-
-		CheckHoldButton (KeyCode.A, ReplaceCar);
-    }
-
-	private void CheckHoldButton(KeyCode keyCode, Action callback)
-	{
-		float curValue;
-		if (Input.GetKeyDown (keyCode) && !checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons.Add (keyCode, 0f);
-		}
-
-		if (Input.GetKeyUp (keyCode) && checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons.Remove (keyCode);
-		}
-
-		if (checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons[keyCode] += Time.deltaTime;
-			if (checkingHoldButtons[keyCode] >= chekingHoldTime)
-			{
-				checkingHoldButtons.Remove (keyCode);
-				if (callback != null)
-				{
-					callback ();
-				}
+			if (axle.applyTorque) {
+				axle.left.motorTorque = torque;
+				axle.right.motorTorque = torque;
 			}
 		}
 	}
 
-	private void ReplaceCar()
+	public void ReplaceCar()
 	{
 		StartCoroutine (ReplacingCar());
 	}

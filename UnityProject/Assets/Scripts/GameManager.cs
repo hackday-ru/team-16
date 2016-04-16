@@ -26,6 +26,32 @@ public class GameManager : NetworkBehaviour {
 
 	}
 		
+	/*private void CheckHoldButton(KeyCode keyCode, Action callback)
+	{
+		float curValue;
+		if (Input.GetKeyDown (keyCode) && !checkingHoldButtons.TryGetValue(keyCode, out curValue))
+		{
+			checkingHoldButtons.Add (keyCode, 0f);
+		}
+
+		if (Input.GetKeyUp (keyCode) && checkingHoldButtons.TryGetValue(keyCode, out curValue))
+		{
+			checkingHoldButtons.Remove (keyCode);
+		}
+
+		if (checkingHoldButtons.TryGetValue(keyCode, out curValue))
+		{
+			checkingHoldButtons[keyCode] += Time.deltaTime;
+			if (checkingHoldButtons[keyCode] >= chekingHoldTime)
+			{
+				checkingHoldButtons.Remove (keyCode);
+				if (callback != null)
+				{
+					callback ();
+				}
+			}
+		}
+	}*/
 
 	[ClientRpc]
 	public void RpcSubmitSelect(int index){
