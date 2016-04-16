@@ -1,1 +1,5 @@
 UnityProject/Library/*
+UnityProject/.consulo/*
+*.csproj
+*.sln
+UnityProject/Temp/*
