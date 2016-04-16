@@ -42,6 +42,7 @@ GameObject:
   - 4: {fileID: 401228}
   - 54: {fileID: 5453554}
   - 114: {fileID: 11452886}
+  - 114: {fileID: 11436534}
   m_Layer: 0
   m_Name: vechicle
   m_TagString: Untagged
@@ -530,6 +531,7 @@ GameObject:
   - 4: {fileID: 419178}
   - 54: {fileID: 5458390}
   - 114: {fileID: 11439290}
+  - 114: {fileID: 11480302}
   m_Layer: 0
   m_Name: vechicle
   m_TagString: Untagged
@@ -1731,6 +1733,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelCollider: {fileID: 14619024}
+--- !u!114 &11436534
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 183
+    i1: 62
+    i2: 98
+    i3: 131
+    i4: 213
+    i5: 47
+    i6: 180
+    i7: 214
+    i8: 90
+    i9: 46
+    i10: 196
+    i11: 220
+    i12: 159
+    i13: 85
+    i14: 77
+    i15: 21
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &11439168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1765,6 +1799,7 @@ MonoBehaviour:
     right: {fileID: 14619024}
     applyTorque: 1
     steeringFactor: 0
+  respawnTime: 2
 --- !u!114 &11452262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1799,6 +1834,39 @@ MonoBehaviour:
     right: {fileID: 14603498}
     applyTorque: 1
     steeringFactor: 0
+  respawnTime: 2
+--- !u!114 &11480302
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 183
+    i1: 62
+    i2: 98
+    i3: 131
+    i4: 213
+    i5: 47
+    i6: 180
+    i7: 214
+    i8: 90
+    i9: 46
+    i10: 196
+    i11: 220
+    i12: 159
+    i13: 85
+    i14: 77
+    i15: 21
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &11483224
 MonoBehaviour:
   m_ObjectHideFlags: 1
