@@ -18,8 +18,10 @@ public class VehicleController : MonoBehaviour
 
 	private bool powered = false;
 
-	public void SelectVechicle(){
+
+	public void EnableVechicle(){
 		gameObject.GetComponent<Rigidbody> ().useGravity = true;
+		//StartEngine ();
 	}
 
 	public void StartEngine(){
