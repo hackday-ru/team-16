@@ -254,7 +254,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 481770}
-  - 65: {fileID: 6587042}
+  - 136: {fileID: 13601070}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -686,18 +686,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6587042
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 195088}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 0.35}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11406250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -732,8 +720,6 @@ MonoBehaviour:
     right: {fileID: 14681184}
     applyTorque: 1
     steeringFactor: 0
-  truePosition: {x: 0, y: 0, z: 0}
-  trueRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &11433390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -835,6 +821,19 @@ MonoBehaviour:
     i15: 223
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!136 &13601070
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195088}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.075
+  m_Height: 0.32
+  m_Direction: 2
+  m_Center: {x: 0, y: -0.01, z: 0}
 --- !u!146 &14615176
 WheelCollider:
   m_ObjectHideFlags: 1
@@ -858,8 +857,8 @@ WheelCollider:
     m_AsymptoteValue: 0.9
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
+    m_ExtremumSlip: 1
+    m_ExtremumValue: 5
     m_AsymptoteSlip: 1.2
     m_AsymptoteValue: 0.9
     m_Stiffness: 1
@@ -887,8 +886,8 @@ WheelCollider:
     m_AsymptoteValue: 0.9
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
+    m_ExtremumSlip: 1
+    m_ExtremumValue: 5
     m_AsymptoteSlip: 1.2
     m_AsymptoteValue: 0.9
     m_Stiffness: 1
@@ -916,8 +915,8 @@ WheelCollider:
     m_AsymptoteValue: 0.9
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
+    m_ExtremumSlip: 1
+    m_ExtremumValue: 5
     m_AsymptoteSlip: 1.2
     m_AsymptoteValue: 0.9
     m_Stiffness: 1
@@ -945,8 +944,8 @@ WheelCollider:
     m_AsymptoteValue: 0.9
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
+    m_ExtremumSlip: 1
+    m_ExtremumValue: 5
     m_AsymptoteSlip: 1.2
     m_AsymptoteValue: 0.9
     m_Stiffness: 1
