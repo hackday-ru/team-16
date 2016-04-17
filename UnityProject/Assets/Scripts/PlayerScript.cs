@@ -51,7 +51,12 @@ public class PlayerScript : NetworkBehaviour
 			//CheckHoldButton (KeyCode.RightAlt, ReplaceCar);
 			//CheckHoldButton (KeyCode.Joystick1Button1, ReplaceCar);
 
-			CheckHoldButton ("Submit", ReplaceCar);
+			//CheckHoldButton ("Submit", ReplaceCar);
+
+			if (Input.GetButton("Submit"))
+			{
+				ReplaceCar();
+			}
 		} else {
 			//menu control
 			float axis = Input.GetAxis("Horizontal");
