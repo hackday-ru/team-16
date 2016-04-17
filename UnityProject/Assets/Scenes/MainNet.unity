@@ -263,6 +263,7 @@ MonoBehaviour:
   matchSize: 4
   serverSidePrefab: {fileID: 11428818, guid: 7f1a4279e280d4d3fbd3e702a44a74f8, type: 2}
   clientSidePrefab: {fileID: 11443624, guid: 25ade1096c53f4d9ea004694bd09335d, type: 2}
+  networkDiscovery: {fileID: 0}
 --- !u!4 &1181575696
 Transform:
   m_ObjectHideFlags: 0
@@ -334,6 +335,22 @@ Prefab:
     - target: {fileID: 409872, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430114, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_InterpolateMovement
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436750, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_InterpolateMovement
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436750, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_InterpolateRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436750, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_SyncSpin
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}

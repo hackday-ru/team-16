@@ -14,7 +14,9 @@ public class GameManager : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		if (NetworkClient.active) {
+			EventSubmitSelect += SubmitSelect;
+		}
 	}
 
 	void OnEnable(){
@@ -25,36 +27,17 @@ public class GameManager : NetworkBehaviour {
 	void Update () {
 
 	}
-		
-	/*private void CheckHoldButton(KeyCode keyCode, Action callback)
-	{
-		float curValue;
-		if (Input.GetKeyDown (keyCode) && !checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons.Add (keyCode, 0f);
-		}
 
-		if (Input.GetKeyUp (keyCode) && checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons.Remove (keyCode);
-		}
+	public delegate void SubmitSelectEvent(int index);
 
-		if (checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons[keyCode] += Time.deltaTime;
-			if (checkingHoldButtons[keyCode] >= chekingHoldTime)
-			{
-				checkingHoldButtons.Remove (keyCode);
-				if (callback != null)
-				{
-					callback ();
-				}
-			}
-		}
-	}*/
+	[SyncEvent]
+	public event SubmitSelectEvent EventSubmitSelect;
 
-	[ClientRpc]
-	public void RpcSubmitSelect(int index){
+	public void RunSubmitEvent(int index){
+		EventSubmitSelect (index);
+	}
+
+	public void SubmitSelect(int index){
 		var selectedCar = cars [index];
 		cars.RemoveAt (index);
 		selectedCar.transform.FindChild("vechicle").GetComponent<VehicleController> ().EnableVechicle ();

@@ -14,6 +14,7 @@ public class PlayerScript : NetworkBehaviour
 
     public GameObject carSelector;
     private bool powered = false;
+
     private VehicleController vechicle;
 
     private float chekingHoldTime = 2f;
@@ -22,7 +23,9 @@ public class PlayerScript : NetworkBehaviour
     // Use this for initialization
     void Start ()
     {
-
+//		if (NetworkClient.active) {
+//			EventSelectCar += DoSelectCar;
+//		}
     }
 
     void OnEnable()
@@ -39,25 +42,23 @@ public class PlayerScript : NetworkBehaviour
             return;
         }
 
-        //menu control
-        float axis = Input.GetAxis("Horizontal");
-        int direction = axis > 0 ? 1 : axis < 0 ? -1 : 0;
-        curSelected += direction;
-        curSelected = Mathf.Clamp(curSelected, 0, gameManager.cars.Count - 1);
-        carSelector.transform.position = gameManager.cars[curSelected].transform.position;
-        if (Input.GetKey("return"))
-            CmdSelectCar(curSelected);
-
         //car control
-        if (powered) {
-
-            float v = Input.GetAxis("Vertical");
-            float h = Input.GetAxis("Horizontal");
-            float j = Input.GetAxis("Jump");
-            vechicle.OrderVechicle(v, h, j);
-
-            CheckHoldButton(KeyCode.A, ReplaceCar);
-        }
+		if (powered) {
+			float v = Input.GetAxis ("Vertical");
+			float h = Input.GetAxis ("Horizontal");
+			float j = Input.GetAxis ("Jump");
+			vechicle.OrderVechicle (v, h, j);
+			CheckHoldButton (KeyCode.A, ReplaceCar);
+		} else {
+			//menu control
+			float axis = Input.GetAxis("Horizontal");
+			int direction = axis > 0 ? 1 : axis < 0 ? -1 : 0;
+			curSelected += direction;
+			curSelected = Mathf.Clamp(curSelected, 0, gameManager.cars.Count - 1);
+			carSelector.transform.position = gameManager.cars[curSelected].transform.position;
+			if (Input.GetKey("return"))
+				CmdSelectCar(curSelected);
+		}
     }
 
     private void ReplaceCar()
@@ -97,12 +98,24 @@ public class PlayerScript : NetworkBehaviour
     {
         if (!carSelected && index >= 0 && index < gameManager.cars.Count) {
             carSelected = true;
-            carSelector.SetActive(false);
-            vechicle = gameManager.cars[index].transform.FindChild("vechicle").GetComponent<VehicleController>();
-            powered = true;
-            gameManager.RpcSubmitSelect(index);
-
-            Camera.main.GetComponent<LookAtTarget>().target = vechicle.transform;
+			RpcSelectCar (index);
+            //powered = true;
+			gameManager.RunSubmitEvent (index);
         }
     }
+
+	//public delegate void SelectCarEvent(int index);
+
+	//[SyncEvent]
+	//public event SelectCarEvent EventSelectCar;
+
+	[ClientRpc]
+	void RpcSelectCar(int index){
+		if (isLocalPlayer) {
+			carSelector.SetActive(false);
+			powered = true;
+			vechicle = gameManager.cars [index].transform.FindChild ("vechicle").GetComponent<VehicleController> ();
+			Camera.main.GetComponent<LookAtTarget> ().target = vechicle.transform;
+		}
+	}
 }
