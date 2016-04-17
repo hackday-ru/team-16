@@ -59,7 +59,7 @@ public class PlayerScript : NetworkBehaviour
         }
 
 		if (isSpectator) {
-			GameObject.Find ("CardboardMain").transform.FindChild ("Head").GetComponent<CardboardHead> ().isActiveAndEnabled = false;
+			GameObject.Find ("CardboardMain").transform.FindChild ("Head").GetComponent<CardboardHead> ().enabled = false;
 		}
 
 		if (isDemonstrator) {
