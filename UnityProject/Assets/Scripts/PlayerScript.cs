@@ -9,6 +9,11 @@ public class PlayerScript : NetworkBehaviour
 
     public GameManager gameManager;
 
+	[SyncVar]
+	bool isSpectator = false;
+	[SyncVar]
+	bool isDemonstrator = false;
+
     private bool carSelected = false;
     private int curSelected = 0;
 
@@ -34,12 +39,32 @@ public class PlayerScript : NetworkBehaviour
         carSelector = gameManager.transform.FindChild("Selector").gameObject;
     }
 
+	[Command]
+	void CmdRequestSpectatorUpdate(Quaternion r){
+		RpcUpdateSpectator (r);
+	}
+
+	[ClientRpc]
+	void RpcUpdateSpectator(Quaternion r){
+		if (isLocalPlayer && isSpectator) {
+			GameObject.Find ("CardboardMain").transform.FindChild ("Head").transform.rotation = r;
+		}
+	}
+
     // Update is called once per frame
     void FixedUpdate()
     {
         if ( !isLocalPlayer ) {
             return;
         }
+
+		if (isSpectator) {
+			GameObject.Find ("CardboardMain").transform.FindChild ("Head").GetComponent<CardboardHead> ().isActiveAndEnabled = false;
+		}
+
+		if (isDemonstrator) {
+			CmdRequestSpectatorUpdate (GameObject.Find ("CardboardMain").transform.FindChild ("Head").transform.rotation);
+		}
 
         //car control
 		if (powered) {
