@@ -45,7 +45,7 @@ public class PlayerScript : NetworkBehaviour
         curSelected += direction;
         curSelected = Mathf.Clamp(curSelected, 0, gameManager.cars.Count - 1);
         carSelector.transform.position = gameManager.cars[curSelected].transform.position;
-        if (Input.GetKey("return"))
+        if (Input.GetButtonDown("Submit"))
             CmdSelectCar(curSelected);
 
         //car control

@@ -222,7 +222,7 @@ MonoBehaviour:
   m_OfflineScene: 
   m_OnlineScene: 
   m_SpawnPrefabs: []
-  m_CustomConfig: 0
+  m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
     m_PacketSize: 1500
@@ -246,11 +246,11 @@ MonoBehaviour:
     m_Channels: []
   m_GlobalConfig:
     m_ThreadAwakeTimeout: 1
-    m_ReactorModel: 0
+    m_ReactorModel: 1
     m_ReactorMaximumReceivedMessages: 1024
     m_ReactorMaximumSentMessages: 1024
     m_MaxPacketSize: 2000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
@@ -263,6 +263,7 @@ MonoBehaviour:
   matchSize: 4
   serverSidePrefab: {fileID: 11428818, guid: 7f1a4279e280d4d3fbd3e702a44a74f8, type: 2}
   clientSidePrefab: {fileID: 11443624, guid: 25ade1096c53f4d9ea004694bd09335d, type: 2}
+  networkDiscovery: {fileID: 0}
 --- !u!4 &1181575696
 Transform:
   m_ObjectHideFlags: 0
