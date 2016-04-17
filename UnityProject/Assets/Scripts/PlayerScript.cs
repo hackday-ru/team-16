@@ -37,7 +37,6 @@ public class PlayerScript : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         if ( !isLocalPlayer ) {
             return;
         }
@@ -55,7 +54,6 @@ public class PlayerScript : NetworkBehaviour
 			{
 				ReplaceCar ();
 			}
-
 		} else {
 			//menu control
 			float axis = Input.GetAxis("Horizontal");
@@ -75,6 +73,9 @@ public class PlayerScript : NetworkBehaviour
 
     private void ReplaceCar()
     {
+        if (!isLocalPlayer)
+            return;
+
         vechicle.ReplaceCar();
     }
 
