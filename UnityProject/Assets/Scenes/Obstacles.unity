@@ -1612,6 +1612,42 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 0.256
       objectReference: {fileID: 0}
+    - target: {fileID: 11430114, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_SendInterval
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430114, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_InterpolateMovement
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430114, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_SyncSpin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430114, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_InterpolateRotation
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436750, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_SnapThreshold
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436750, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_InterpolateRotation
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436750, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_SendInterval
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11436750, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_SyncSpin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11430114, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
+      propertyPath: m_SnapThreshold
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b73e6283d52fb4d65a2ec4dc9f554d15, type: 2}
   m_IsPrefabParent: 0
