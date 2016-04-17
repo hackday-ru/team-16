@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.Networking;
 
 public class NetworkController : NetworkManager {
@@ -9,7 +8,7 @@ public class NetworkController : NetworkManager {
 
 	private NetworkBehaviour networkLogic;
 
-	public NetworkDiscovery networkDiscovery;
+	private NetworkDiscovery networkDiscovery;
 	bool lookForLANGames = false;
 	float waitTime;
 
@@ -36,6 +35,7 @@ public class NetworkController : NetworkManager {
 		#if !UNITY_IPHONE
 		if (!networkLogic) {
 			if (Input.GetButton ("Submit")) {
+                Debug.Log("Starting server mode");
 				StartHost();
 
 				networkDiscovery.StartAsServer ();
@@ -44,6 +44,7 @@ public class NetworkController : NetworkManager {
 				networkLogic.transform.SetParent (gameObject.transform);
 				(networkLogic as iNetBehaviour).Initialize ();
 			} else if (Input.GetButton ("Jump")) {
+                Debug.Log("Starting client mode");
 				StopServer();
 				StopHost();
 
@@ -67,6 +68,12 @@ public class NetworkController : NetworkManager {
 		}
 		#endif
 	}
+
+	#if !UNITY_IPHONE
+	void OnGUI() {
+		GUI.Label(new Rect(10, 10, 400, 100), "Press Submit to start Server / Press Jump to start client");
+	}
+	#endif
 
 	public override void OnStartClient(NetworkClient client)
 	{
