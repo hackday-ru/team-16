@@ -53,7 +53,7 @@ public class PlayerScript : NetworkBehaviour
 
 			//CheckHoldButton ("Submit", ReplaceCar);
 
-			if (Input.GetButton("Submit"))
+			if (Input.GetButtonDown("Submit"))
 			{
 				ReplaceCar();
 			}
@@ -65,7 +65,7 @@ public class PlayerScript : NetworkBehaviour
 			curSelected = Mathf.Clamp(curSelected, 0, gameManager.cars.Count - 1);
 			carSelector.transform.position = gameManager.cars[curSelected].transform.position;
 
-			if (Input.GetButton("Submit"))
+			if (Input.GetButtonDown("Submit"))
 			{
 				CmdSelectCar (curSelected);
 			}

@@ -73,6 +73,11 @@ public class VehicleController : NetworkBehaviour
 
     public void ReplaceCar()
     {
+		if (transform.GetComponent<Rigidbody> ().isKinematic)
+		{
+			return;
+		}
+
         StartCoroutine(ReplacingCar());
     }
 
