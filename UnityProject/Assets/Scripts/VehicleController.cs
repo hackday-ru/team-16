@@ -78,6 +78,8 @@ public class VehicleController : NetworkBehaviour
 
     private IEnumerator ReplacingCar()
     {
+		transform.GetComponent<Rigidbody> ().isKinematic = true;
+
         Vector3 startReplacePosition = transform.position;
         Quaternion startReplaceRotation = transform.rotation;
 
@@ -95,6 +97,8 @@ public class VehicleController : NetworkBehaviour
 
             yield return new WaitForEndOfFrame();
         }
+
+		transform.GetComponent<Rigidbody> ().isKinematic = false;
     }
 
     void OnTriggerEnter(Collider collider)
