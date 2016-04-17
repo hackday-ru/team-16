@@ -821,6 +821,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 704296200}
+  - 114: {fileID: 704296201}
   m_Layer: 0
   m_Name: CheckPoints
   m_TagString: Untagged
@@ -856,6 +857,19 @@ Transform:
   - {fileID: 950212901}
   m_Father: {fileID: 0}
   m_RootOrder: 21
+--- !u!114 &704296201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 704296199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56410d9e2cba241fbbc774e80c8f78f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: fcac78b28832a4d1b9b71752a1d2b1b4, type: 2}
+  offsetSpeed: {x: 0.003, y: 0}
 --- !u!1001 &791836361
 Prefab:
   m_ObjectHideFlags: 0
@@ -1923,7 +1937,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400004, guid: b8b03d395f5734e98af91ccf44f9bf47, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.09
+      value: 3.29
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: b8b03d395f5734e98af91ccf44f9bf47, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1931,7 +1945,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: b8b03d395f5734e98af91ccf44f9bf47, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -2.08
+      value: -0.62
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: b8b03d395f5734e98af91ccf44f9bf47, type: 2}
       propertyPath: m_LocalRotation.x
