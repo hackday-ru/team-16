@@ -18,7 +18,7 @@ public class PlayerScript : NetworkBehaviour
     private VehicleController vechicle;
 
     private float chekingHoldTime = 2f;
-    private Dictionary<KeyCode, float> checkingHoldButtons = new Dictionary<KeyCode, float>();
+	private Dictionary<string, float> checkingHoldButtons = new Dictionary<string, float>();
 
     // Use this for initialization
     void Start ()
@@ -48,8 +48,8 @@ public class PlayerScript : NetworkBehaviour
 			float h = Input.GetAxis ("Horizontal");
 			float j = Input.GetAxis ("Jump");
 			vechicle.OrderVechicle (v, h, j);
-			CheckHoldButton (KeyCode.RightAlt, ReplaceCar);
-			CheckHoldButton (KeyCode.Joystick1Button1, ReplaceCar);
+			//CheckHoldButton (KeyCode.RightAlt, ReplaceCar);
+			//CheckHoldButton (KeyCode.Joystick1Button1, ReplaceCar);
 		} else {
 			//menu control
 			float axis = Input.GetAxis("Horizontal");
@@ -57,9 +57,14 @@ public class PlayerScript : NetworkBehaviour
 			curSelected += direction;
 			curSelected = Mathf.Clamp(curSelected, 0, gameManager.cars.Count - 1);
 			carSelector.transform.position = gameManager.cars[curSelected].transform.position;
-			if (Input.GetKey("return"))
-				CmdSelectCar(curSelected);
+
+			if (Input.GetButton("Submit"))
+			{
+				CmdSelectCar (curSelected);
+			}
 		}
+
+		CheckHoldButton ("Submit", ReplaceCar);
     }
 
     private void ReplaceCar()
@@ -67,15 +72,15 @@ public class PlayerScript : NetworkBehaviour
         vechicle.ReplaceCar();
     }
 
-    private void CheckHoldButton(KeyCode keyCode, Action callback)
+	private void CheckHoldButton(string keyCode, Action callback)
     {
         float curValue;
-        if (Input.GetKeyDown(keyCode) && !checkingHoldButtons.TryGetValue(keyCode, out curValue))
+		if (Input.GetButtonDown(keyCode) && !checkingHoldButtons.TryGetValue(keyCode, out curValue))
         {
             checkingHoldButtons.Add(keyCode, 0f);
         }
 
-        if (Input.GetKeyUp(keyCode) && checkingHoldButtons.TryGetValue(keyCode, out curValue))
+		if (Input.GetButtonUp(keyCode) && checkingHoldButtons.TryGetValue(keyCode, out curValue))
         {
             checkingHoldButtons.Remove(keyCode);
         }
