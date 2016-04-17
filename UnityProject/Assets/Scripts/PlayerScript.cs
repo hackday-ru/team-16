@@ -51,6 +51,10 @@ public class PlayerScript : NetworkBehaviour
 		}
 	}
 
+	void CmdSyncParams(float v, float h, float j){
+		vechicle.OrderVechicle (v, h, j);
+	}
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -71,7 +75,8 @@ public class PlayerScript : NetworkBehaviour
 			float v = Input.GetAxis ("Vertical");
 			float h = Input.GetAxis ("Horizontal");
 			float j = Input.GetAxis ("Jump");
-			vechicle.OrderVechicle (v, h, j);
+			//vechicle.OrderVechicle (v, h, j);
+			CmdSyncParams(v,h,j);
 			//CheckHoldButton (KeyCode.RightAlt, ReplaceCar);
 			//CheckHoldButton (KeyCode.Joystick1Button1, ReplaceCar);
 
@@ -137,7 +142,8 @@ public class PlayerScript : NetworkBehaviour
         if (!carSelected && index >= 0 && index < gameManager.cars.Count) {
             carSelected = true;
 			RpcSelectCar (index);
-            //powered = true;
+			//powered = true;
+			vechicle = gameManager.cars [index].transform.FindChild ("vechicle").GetComponent<VehicleController> ();
 			gameManager.RunSubmitEvent (index);
         }
     }
