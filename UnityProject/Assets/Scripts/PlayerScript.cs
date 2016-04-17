@@ -40,7 +40,9 @@ public class PlayerScript : NetworkBehaviour
     }
 
 	[Command]
-	void CmdRequestSpectatorUpdate(Quaternion r){
+	void CmdRequestSpectatorUpdate(Quaternion r)
+	{
+		Debug.Log ("CmdRequestSpectatorUpdate");
 		RpcUpdateSpectator (r);
 	}
 
@@ -51,6 +53,7 @@ public class PlayerScript : NetworkBehaviour
 		}
 	}
 
+	[Command]
 	void CmdSyncParams(float v, float h, float j){
 		vechicle.OrderVechicle (v, h, j);
 	}
