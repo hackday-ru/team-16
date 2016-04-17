@@ -50,6 +50,8 @@ public class PlayerScript : NetworkBehaviour
 			vechicle.OrderVechicle (v, h, j);
 			//CheckHoldButton (KeyCode.RightAlt, ReplaceCar);
 			//CheckHoldButton (KeyCode.Joystick1Button1, ReplaceCar);
+
+			CheckHoldButton ("Submit", ReplaceCar);
 		} else {
 			//menu control
 			float axis = Input.GetAxis("Horizontal");
@@ -63,8 +65,6 @@ public class PlayerScript : NetworkBehaviour
 				CmdSelectCar (curSelected);
 			}
 		}
-
-		CheckHoldButton ("Submit", ReplaceCar);
     }
 
     private void ReplaceCar()
