@@ -48,7 +48,8 @@ public class PlayerScript : NetworkBehaviour
 			float h = Input.GetAxis ("Horizontal");
 			float j = Input.GetAxis ("Jump");
 			vechicle.OrderVechicle (v, h, j);
-			CheckHoldButton (KeyCode.A, ReplaceCar);
+			CheckHoldButton (KeyCode.RightAlt, ReplaceCar);
+			CheckHoldButton (KeyCode.Joystick1Button1, ReplaceCar);
 		} else {
 			//menu control
 			float axis = Input.GetAxis("Horizontal");
@@ -115,7 +116,7 @@ public class PlayerScript : NetworkBehaviour
 			carSelector.SetActive(false);
 			powered = true;
 			vechicle = gameManager.cars [index].transform.FindChild ("vechicle").GetComponent<VehicleController> ();
-			Camera.main.GetComponent<LookAtTarget> ().target = vechicle.transform;
+			//Camera.main.GetComponent<LookAtTarget> ().target = vechicle.transform;
 		}
 	}
 }
