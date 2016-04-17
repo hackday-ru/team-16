@@ -1047,6 +1047,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTorque: 20
   maxSteering: 30
+  distanceToGround: 5
+  jumpForce: 0.2
   axles:
   - left: {fileID: 14637700}
     right: {fileID: 14636924}
@@ -1056,6 +1058,7 @@ MonoBehaviour:
     right: {fileID: 14649022}
     applyTorque: 1
     steeringFactor: 0
+  respawnTime: 2
 --- !u!114 &11469572
 MonoBehaviour:
   m_ObjectHideFlags: 1
