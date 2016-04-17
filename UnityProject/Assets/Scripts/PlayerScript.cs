@@ -54,10 +54,13 @@ public class PlayerScript : NetworkBehaviour
             float v = Input.GetAxis("Vertical");
             float h = Input.GetAxis("Horizontal");
             float j = Input.GetAxis("Jump");
+
             vechicle.OrderVechicle(v, h, j);
 
             CheckHoldButton(KeyCode.A, ReplaceCar);
         }
+
+		CheckHoldButton(KeyCode.JoystickButton2, ReplaceCar);
     }
 
     private void ReplaceCar()
