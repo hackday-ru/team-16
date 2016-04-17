@@ -23,6 +23,7 @@ public class VehicleController : NetworkBehaviour
     public Axle[] axles = {};
 
     Rigidbody body;
+    CheckPoint checkPoint;
 
     public void EnableVechicle()
     {
@@ -93,6 +94,21 @@ public class VehicleController : NetworkBehaviour
             curT = curTime / respawnTime;
 
             yield return new WaitForEndOfFrame();
+        }
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        Debug.Log("OnTriggerEnter");
+        var point = collider.GetComponent<CheckPoint>();
+        if (point == null || point == checkPoint) { return; }
+
+        if (checkPoint == null || checkPoint.next == point)
+        {
+            if (checkPoint != null) { checkPoint.next.SetActive(false); }
+
+            checkPoint = point;
+            checkPoint.next.SetActive(true);
         }
     }
 }
