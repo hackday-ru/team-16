@@ -12,68 +12,87 @@ public class VehicleController : NetworkBehaviour
         public WheelCollider left;
         public WheelCollider right;
         public bool applyTorque;
-        [Range(-1, 1)] public float steeringFactor;
+        [Range(-1, 1)]
+        public float steeringFactor;
     }
 
     public float maxTorque;
     public float maxSteering;
+    public float distanceToGround;
+    public float jumpForce;
     public Axle[] axles = {};
 
-	public void EnableVechicle(){
-		gameObject.GetComponent<Rigidbody> ().useGravity = true;
-		//StartEngine ();
-	}
-		
-	public float respawnTime = 2f;
+    Rigidbody body;
 
-	private Vector3 startPosition;
-	private Quaternion startRotation;
+    public void EnableVechicle()
+    {
+        gameObject.GetComponent<Rigidbody>().useGravity = true;
+        //StartEngine ();
+    }
 
-	public void Start()
-	{
-		startPosition = transform.position;
-		startRotation = transform.rotation;
-	}
+    public float respawnTime = 2f;
 
-	public void OrderVechicle(float vertical,float horizontal){
-		float torque = maxTorque * vertical;
-		float steering = maxSteering * horizontal;
+    private Vector3 startPosition;
+    private Quaternion startRotation;
 
-		foreach (var axle in axles) {
-			axle.left.steerAngle = steering * axle.steeringFactor;
-			axle.right.steerAngle = steering * axle.steeringFactor;
+    public void Start()
+    {
+        body = GetComponent<Rigidbody>();
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+    }
 
-			if (axle.applyTorque) {
-				axle.left.motorTorque = torque;
-				axle.right.motorTorque = torque;
-			}
-		}
-	}
+    public void OrderVechicle(float vertical, float horizontal, float jump)
+    {
+        float torque = maxTorque * vertical;
+        float steering = maxSteering * horizontal;
 
-	public void ReplaceCar()
-	{
-		StartCoroutine (ReplacingCar());
-	}
+        foreach (var axle in axles)
+        {
+            axle.left.steerAngle = steering * axle.steeringFactor;
+            axle.right.steerAngle = steering * axle.steeringFactor;
 
-	private IEnumerator ReplacingCar()
-	{
-		Vector3 startReplacePosition = transform.position;
-		Quaternion startReplaceRotation = transform.rotation;
+            if (axle.applyTorque)
+            {
+                axle.left.motorTorque = torque;
+                axle.right.motorTorque = torque;
+            }
+        }
 
-		bool replacing = true;
-		float curT = 0f;
-		float curTime = 0f;
-		while (replacing)
-		{
-			replacing = !(curT >= 1f);
+        if (jump > 0.5f)
+        {
+            bool isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround);
 
-			transform.position = Vector3.Lerp (startReplacePosition, startPosition, curT);
-			transform.rotation = Quaternion.Slerp(startReplaceRotation, startRotation, curT);
+            if (isGrounded)
+            {
+                body.AddForce(0.0f, jumpForce, 0.0f, ForceMode.Impulse);
+            }
+        }
+    }
 
-			curTime += Time.deltaTime;
-			curT = curTime / respawnTime;
+    public void ReplaceCar()
+    {
+        StartCoroutine(ReplacingCar());
+    }
 
-			yield return new WaitForEndOfFrame();
-		}
-	}
+    private IEnumerator ReplacingCar()
+    {
+        Vector3 startReplacePosition = transform.position;
+        Quaternion startReplaceRotation = transform.rotation;
+
+        bool replacing = true;
+        float curT = 0f;
+        float curTime = 0f;
+        while (replacing) {
+            replacing = !(curT >= 1f);
+
+            transform.position = Vector3.Lerp(startReplacePosition, startPosition, curT);
+            transform.rotation = Quaternion.Slerp(startReplaceRotation, startRotation, curT);
+
+            curTime += Time.deltaTime;
+            curT = curTime / respawnTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }

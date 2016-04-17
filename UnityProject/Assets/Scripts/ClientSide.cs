@@ -4,13 +4,8 @@ using UnityEngine.Networking;
 
 public class ClientSide : NetworkBehaviour, iNetBehaviour {
 
-	private NetworkDiscovery networkDiscovery;
-
 	// Use this for initialization
 	public void Initialize () {
-		networkDiscovery = GetComponentInParent<NetworkDiscovery> ();
-		networkDiscovery.Initialize ();
-		networkDiscovery.StartAsClient ();
 		Debug.Log ("**** Client started ****");
 	}
 
