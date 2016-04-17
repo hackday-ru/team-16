@@ -12,45 +12,40 @@ public class VehicleController : NetworkBehaviour
         public WheelCollider left;
         public WheelCollider right;
         public bool applyTorque;
-        [Range(-1, 1)] public float steeringFactor;
+        [Range(-1, 1)]
+        public float steeringFactor;
     }
 
     public float maxTorque;
     public float maxSteering;
+    public float distanceToGround;
+    public float jumpForce;
     public Axle[] axles = {};
 
-	private bool powered = false;
+    Rigidbody body;
 
-	public void EnableVechicle(){
-		gameObject.GetComponent<Rigidbody> ().useGravity = true;
-		//StartEngine ();
-	}
-
-	public void StartEngine(){
-		powered = true;
-	}
-		
-	public float respawnTime = 2f;
-	private float chekingHoldTime = 2f;
-	private Dictionary<KeyCode, float> checkingHoldButtons = new Dictionary<KeyCode, float>();
-
-	private Vector3 startPosition;
-	private Quaternion startRotation;
-
-	public void Start()
-	{
-		startPosition = transform.position;
-		startRotation = transform.rotation;
-	}
-
-    public void Update ()
+    public void EnableVechicle()
     {
-        if ( !isLocalPlayer ) {
-            return;
-        }
+        gameObject.GetComponent<Rigidbody>().useGravity = true;
+        //StartEngine ();
+    }
 
-        float torque = maxTorque * Input.GetAxis("Vertical");
-        float steering = maxSteering * Input.GetAxis("Horizontal");
+    public float respawnTime = 2f;
+
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+
+    public void Start()
+    {
+        body = GetComponent<Rigidbody>();
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+    }
+
+    public void OrderVechicle(float vertical, float horizontal, float jump)
+    {
+        float torque = maxTorque * vertical;
+        float steering = maxSteering * horizontal;
 
         foreach (var axle in axles)
         {
@@ -64,60 +59,40 @@ public class VehicleController : NetworkBehaviour
             }
         }
 
-		CheckHoldButton (KeyCode.A, ReplaceCar);
+        if (jump > 0.5f)
+        {
+            bool isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround);
+
+            if (isGrounded)
+            {
+                body.AddForce(0.0f, jumpForce, 0.0f, ForceMode.Impulse);
+            }
+        }
     }
 
-	private void CheckHoldButton(KeyCode keyCode, Action callback)
-	{
-		float curValue;
-		if (Input.GetKeyDown (keyCode) && !checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons.Add (keyCode, 0f);
-		}
+    public void ReplaceCar()
+    {
+        StartCoroutine(ReplacingCar());
+    }
 
-		if (Input.GetKeyUp (keyCode) && checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons.Remove (keyCode);
-		}
+    private IEnumerator ReplacingCar()
+    {
+        Vector3 startReplacePosition = transform.position;
+        Quaternion startReplaceRotation = transform.rotation;
 
-		if (checkingHoldButtons.TryGetValue(keyCode, out curValue))
-		{
-			checkingHoldButtons[keyCode] += Time.deltaTime;
-			if (checkingHoldButtons[keyCode] >= chekingHoldTime)
-			{
-				checkingHoldButtons.Remove (keyCode);
-				if (callback != null)
-				{
-					callback ();
-				}
-			}
-		}
-	}
+        bool replacing = true;
+        float curT = 0f;
+        float curTime = 0f;
+        while (replacing) {
+            replacing = !(curT >= 1f);
 
-	private void ReplaceCar()
-	{
-		StartCoroutine (ReplacingCar());
-	}
+            transform.position = Vector3.Lerp(startReplacePosition, startPosition, curT);
+            transform.rotation = Quaternion.Slerp(startReplaceRotation, startRotation, curT);
 
-	private IEnumerator ReplacingCar()
-	{
-		Vector3 startReplacePosition = transform.position;
-		Quaternion startReplaceRotation = transform.rotation;
+            curTime += Time.deltaTime;
+            curT = curTime / respawnTime;
 
-		bool replacing = true;
-		float curT = 0f;
-		float curTime = 0f;
-		while (replacing)
-		{
-			replacing = !(curT >= 1f);
-
-			transform.position = Vector3.Lerp (startReplacePosition, startPosition, curT);
-			transform.rotation = Quaternion.Slerp(startReplaceRotation, startRotation, curT);
-
-			curTime += Time.deltaTime;
-			curT = curTime / respawnTime;
-
-			yield return new WaitForEndOfFrame();
-		}
-	}
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }
