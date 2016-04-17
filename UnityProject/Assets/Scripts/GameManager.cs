@@ -40,7 +40,7 @@ public class GameManager : NetworkBehaviour {
 	public void SubmitSelect(int index){
 		var selectedCar = cars [index];
 		cars.RemoveAt (index);
-		selectedCar.transform.FindChild("vechicle").GetComponent<VehicleController> ().EnableVechicle ();
+		//selectedCar.transform.FindChild("vechicle").GetComponent<VehicleController> ().EnableVechicle ();
 		selectedCar.transform.FindChild ("Platform").gameObject.SetActive (false);
 	}
 

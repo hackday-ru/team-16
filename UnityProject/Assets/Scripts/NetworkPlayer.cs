@@ -8,9 +8,9 @@ public class NetworkPlayer : NetworkBehaviour {
     public Material newMaterial;
 
     public override void OnStartLocalPlayer () {
-        Camera.main.GetComponent<LookAtTarget>().target = transform;
-        //body.sharedMaterial = newMaterial;
-        //body.sharedMaterial.color = Color.red;
+        //Camera.main.GetComponent<LookAtTarget>().target = transform;
+        body.sharedMaterial = newMaterial;
+        body.sharedMaterial.color = Color.red;
     }
 
 }
