@@ -115,7 +115,7 @@ public class PlayerScript : NetworkBehaviour
 			carSelector.SetActive(false);
 			powered = true;
 			vechicle = gameManager.cars [index].transform.FindChild ("vechicle").GetComponent<VehicleController> ();
-			Camera.main.GetComponent<LookAtTarget> ().target = vechicle.transform;
+			//Camera.main.GetComponent<LookAtTarget> ().target = vechicle.transform;
 		}
 	}
 }
